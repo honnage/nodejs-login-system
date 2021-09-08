@@ -15,8 +15,7 @@ router.get("/login", function (req, res, next) {
   res.render("login");
 });
 
-router.post(
-  "/register",
+router.post("/register",
   [
     check("email", "กรุณาป้อนอีเมล").isEmail(),
     check("name", "กรุณาป้อนชื่อของท่าน").not().isEmpty(),
