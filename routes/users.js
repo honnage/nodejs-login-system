@@ -14,5 +14,11 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 })
 
+router.post('/register', function(req, res, next) {
+  console.log(req.body.name);
+  console.log(req.body.email);
+  console.log(req.body.password);
+})
+
 
 module.exports = router;
