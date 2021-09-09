@@ -12,8 +12,11 @@
   <%- include('layout.ejs') %>
   <div class="container">
     
-    <h2>hello</h2>
-    <h3><%= title %></h3>
+    <h1 align="center">Test login System</h1>
+    <% if(user) {%>
+      <h3><%= user.name %></h3>
+      <h3><%= user.email %></h3>
+    <% } %>
   </div>
 
 </body>
