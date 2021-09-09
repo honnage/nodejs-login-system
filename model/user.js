@@ -3,7 +3,7 @@ var mongoDB = 'mongodb://localhost:27017/LoginDB';
 var bcrypt = require('bcryptjs')
 
 mongoose.connect(mongoDB, {
-    useNewUrlParser: true
+  useNewUrlParser: true
 })
 
 //Connect
@@ -12,15 +12,15 @@ db.on('error', console.error.bind(console, 'Mongodb Connect Error'));
 
 // Create Schema
 var userSchema = mongoose.Schema({
-    name: {
-      type: String
-    },
-    email: {
-      type: String
-    },
-    password: {
-      type: String
-    }
+  name: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  password: {
+    type: String
+  }
 });
 
 var User = module.exports = mongoose.model('User', userSchema);
@@ -34,3 +34,13 @@ module.exports.createUser = function(newUser, callback) {
   });
 }
 
+module.exports.getUserById = function(id, callback) {
+  User.findById(id, callback);
+}
+
+module.exports.getUserByName = function(name, callback) {
+  var query = {
+    name: name
+  };
+  User.findOne(query, callback);
+}
