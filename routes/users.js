@@ -2,6 +2,8 @@ var express = require("express");
 var router = express.Router();
 var User = require('../model/user');
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 const { 
   check, 
@@ -21,9 +23,41 @@ router.get("/login", function (req, res, next) {
   res.render("login");
 });
 
-router.post("/login", function (req, res, next) {
-  res.render("login");
+router.post("/login",passport.authenticate('local',{
+    failureRedirect:'/users/login',
+    failureFlash:false
+}), function (req, res) {
+    res.redirect('/');
 });
+
+passport.serializeUser(function (user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done) {
+  User.getUserById(id, function (err, user) {
+    done(err, user);
+  });
+});
+
+passport.use(new LocalStrategy(function(username, password, done) {
+  User.getUserByName(username, function(err, user) {
+    if (err) throw error;
+    if (!user) {
+        return done(null, false);
+    }else{
+        return done(null, user);
+    }
+    User.comparePassword(password, user.password, function(err, isMatch) {
+      if (err) return err;
+      if (isMatch) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    });
+  });
+}));
 
 router.post("/register",
   [
