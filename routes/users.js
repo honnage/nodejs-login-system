@@ -23,11 +23,13 @@ router.get("/login", function (req, res, next) {
   res.render("login");
 });
 
-router.post("/login",passport.authenticate('local',{
-    failureRedirect:'/users/login',
-    failureFlash:false
-}), function (req, res) {
-    res.redirect('/');
+router.post('/login', passport.authenticate('local', {
+  failureRedirect: '/users/login',
+  failureFlash: true
+}),
+function(req, res) {
+      // req.flash("success", "ลงชื่อเข้าใช้เรียบร้อยแล้ว");
+      res.redirect('/');
 });
 
 passport.serializeUser(function (user, done) {

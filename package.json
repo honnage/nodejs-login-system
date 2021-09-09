@@ -12,13 +12,14 @@
     "ejs": "*",
     "express": "~4.16.1",
     "express-message": "*",
+    "express-session": "^1.17.2",
     "express-validator": "*",
     "http-errors": "~1.6.3",
     "mongod": "*",
     "mongoose": "*",
     "morgan": "~1.9.1",
     "passport": "*",
-    "passport-local": "*",
-    "passport-http": "*"
+    "passport-http": "*",
+    "passport-local": "*"
   }
 }
