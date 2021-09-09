@@ -12,7 +12,7 @@
     <%- include('layout.ejs') %>
     <div class="container">
     <h2 align="center">Login Form</h2>
-    
+    <%- messages() %>
     <form class="form-group" action="/users/login" method="post">
         <div class="form-group">
             <label for="">Username:</label>
@@ -25,7 +25,8 @@
         <input type="submit" name="" value="login" class="btn btn-success"> 
     </form>
   </div>
-
-  
 </body>
+<script type="text/javascript">
+  $('#messages').addClass("alert alert-danger");
+</script>
 </html>
