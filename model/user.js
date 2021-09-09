@@ -1,0 +1,36 @@
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/LoginDB';
+var bcrypt = require('bcryptjs')
+
+mongoose.connect(mongoDB, {
+    useNewUrlParser: true
+})
+
+//Connect
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Mongodb Connect Error'));
+
+// Create Schema
+var userSchema = mongoose.Schema({
+    name: {
+      type: String
+    },
+    email: {
+      type: String
+    },
+    password: {
+      type: String
+    }
+});
+
+var User = module.exports = mongoose.model('User', userSchema);
+
+module.exports.createUser = function(newUser, callback) {
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(newUser.password, salt, function(err, hash) {
+      newUser.password = hash;
+      newUser.save(callback);
+    });
+  });
+}
+

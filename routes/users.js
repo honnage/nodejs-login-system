@@ -1,6 +1,12 @@
 var express = require("express");
 var router = express.Router();
-const { check, validationResult } = require("express-validator");
+var User = require('../model/user');
+
+
+const { 
+  check, 
+  validationResult 
+} = require("express-validator");
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
@@ -33,6 +39,19 @@ router.post("/register",
       });
     }else{
       //Insert Data
+      var name = req.body.name;
+      var password = req.body.password;
+      var email = req.body.email;
+      var newUser = new User({
+        name:name,
+        password:password,
+        email:email
+      });
+      User.createUser(newUser, function(err, user) {
+        if (err) throw err
+      });
+      res.location('/');
+      res.redirect('/');
     }
   }
 );
